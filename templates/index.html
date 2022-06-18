@@ -1,0 +1,75 @@
+{%extends "base.html"%}
+{%block content%}
+    <div class = "container">
+        <header class = "header">
+            <h3 style= "text-align: center">MiniLink</h3>
+        </header>
+        <form action="" method="post"> 
+            <label>Enter the Long URL</label>
+            <div class="col-12">
+                <input type="text" name = "long_link" class="form-control" required>
+            </div>
+            <label>Customize Your MiniLink</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="minilink.com">
+                <input type="text" class="form-control" name="alias" placeholder="eg. xz12c" aria-label="alias">
+            </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button style="background-color: green;" class="btn btn-primary" type="submit">Get MiniLink</button>
+              </div>
+        </form>
+        {%if res%}  
+        <div class="input-group mb-3">
+            <input type="text" class="form-control w-75" id="textArea" aria-labela="Recipient's username" aria-describedby="button-addon2">
+            <button class="form-control w-25 bg-primary text-white" onclick="copyAction()" type="button" id="button-addon2" data-bs-toggle="tooltip" data-bs-placement="top" title="copy link to clipboard" value=link>
+            Copy</button>
+            <script>
+                document.getElementById("textArea").value = "{{link}}";
+
+                function copyAction(element, attributes) {
+                    Object.keys(attributes).forEach(attr => {
+                        element.setAttribute(attr, attributes[attr]);
+                    });
+                     /* Get the text field */
+                    var contentArea = document.getElementById("textArea");
+
+                    /* Select the text field */
+                    contentArea.select();
+                    contentArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+                    /* Copy the text inside the text field */
+                    navigator.clipboard.writeText(contentArea.value);
+                    /*change tooltip text*/
+                    var copybtn = document.getElementById("button-addon2");
+                    $('[data-toggle="tooltip"]').tooltip()
+                    document.getElementById('button-addon2').setAttribute('data-original-title', "copied to clipboard").tooltip('show');
+                }
+
+                var attributes = {
+                value: "Copied",
+                style: 'background-color: green',
+                };
+                var copybtn = document.getElementById("button-addon2");
+                copyAction(copybtn, attributes);
+                // function copyText() {
+                //     /* Get the text field */
+                //     var contentArea = document.getElementById("textArea");
+
+                //     /* Select the text field */
+                //     contentArea.select();
+                //     contentArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+                //      /* Copy the text inside the text field */
+                //     navigator.clipboard.writeText(contentArea.value);
+                //     /*change tooltip text*/
+                    
+                    
+                //     $(element).tooltip('hide').attr('data-original-title', "copied to clipboard").tooltip('show');
+                // }
+            
+            </script>
+        </div>
+        {%endif%}
+       
+    </div>
+{%endblock%}
